@@ -36,5 +36,5 @@ public class Rec2D {
 		_recColor = newColor;
 		//Regernate our texture using our new color
 		generateTexture();
-		}
+	}
 }
