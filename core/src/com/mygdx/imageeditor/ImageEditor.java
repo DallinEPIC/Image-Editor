@@ -29,12 +29,12 @@ public class ImageEditor extends ApplicationAdapter {
 		ScreenUtils.clear(0, 0, 0, 1);
 		batch.begin();
 		batch.draw(rectangle.RecTexture, rectangle.Position.x, rectangle.Position.y);
-		if(rectangle.Position.x > _screenSize.x || rectangle.Position.x < 0) {
+		if(rectangle.Position.x > _screenSize.x - rectangle.Scale.x|| rectangle.Position.x < 0) {
 			rectangle.Velocity.x *= -1;
 			Random random = new Random();
 			rectangle.changeColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
 		}
-		if(rectangle.Position.y > _screenSize.y || rectangle.Position.y < 0) {
+		if(rectangle.Position.y > _screenSize.y - rectangle.Scale.y|| rectangle.Position.y < 0) {
 			rectangle.Velocity.y *= -1;
 			Random random = new Random();
 			rectangle.changeColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
