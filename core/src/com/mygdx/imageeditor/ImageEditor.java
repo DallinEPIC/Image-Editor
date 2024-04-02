@@ -21,7 +21,7 @@ public class ImageEditor extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		_screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		rectangle = new Rec2D(new Vector2(100, 150), new Vector2(100, 150), new Vector2(20, 20), Color.GOLDENROD);
+                rectangle = new Rec2D(new Vector2(250, 100), new Vector2(_screenSize.x / 2f, _screenSize.y / 2f), Color.WHITE);
 	}
 
 	@Override
@@ -29,17 +29,6 @@ public class ImageEditor extends ApplicationAdapter {
 		ScreenUtils.clear(0, 0, 0, 1);
 		batch.begin();
 		batch.draw(rectangle.RecTexture, rectangle.Position.x, rectangle.Position.y);
-		if(rectangle.Position.x > _screenSize.x - rectangle.Scale.x|| rectangle.Position.x < 0) {
-			rectangle.Velocity.x *= -1;
-			Random random = new Random();
-			rectangle.changeColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
-		}
-		if(rectangle.Position.y > _screenSize.y - rectangle.Scale.y|| rectangle.Position.y < 0) {
-			rectangle.Velocity.y *= -1;
-			Random random = new Random();
-			rectangle.changeColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
-		}
-		rectangle.Position.add(rectangle.Velocity);
 		batch.end();
 	}
 	
