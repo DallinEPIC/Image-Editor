@@ -21,7 +21,11 @@ public class ImageEditor extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		_screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                rectangle = new Rec2D(new Vector2(250, 100), new Vector2(_screenSize.x / 2f, _screenSize.y / 2f), Color.WHITE);
+		Vector2 rectangleScale = new Vector2(250, 100);
+		rectangle = new Rec2D(
+			rectangleScale,
+			new Vector2(_screenSize.x / 2f - rectangleScale.x / 2f, _screenSize.y / 2f - rectangleScale.y / 2f),
+			Color.WHITE);
 	}
 
 	@Override
