@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.math.Vector2;
 
 public class Rec2D {
-	public Vector2 Scale;
 	public Vector2 Position;
+	public Vector2 Scale;
 	public Texture RecTexture;
 	private Pixmap _pixelMap;
 	protected Color _recColor;

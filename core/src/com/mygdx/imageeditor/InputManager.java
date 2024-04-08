@@ -5,31 +5,34 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class InputManager implements InputProcessor {
-	public Array<Button> Buttons = new Array<Button>();
+	public Array<IClickable> Clickables = new Array<IClickable>();
+	public Array<IHoverable> Hoverables = new Array<IHoverable>();
 	public static InputManager Instance;
-	private Button _hoveredButton;
+	private IHoverable _currentlyHovered;
+	private IClickable _currentlyClicked;
 	
 	public InputManager() {
 		Instance = this;
 	}
 	
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		Button collision = CollisionManager.Instance.getCollision(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
-		if(collision != null) collision.onClickDown();
+		IClickable collision = CollisionManager.Instance.getClicked(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+		if(collision != null) collision.onClickDown(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+		_currentlyClicked = collision;
 		return true;
 	}
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		Button collision = CollisionManager.Instance.getCollision(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
-		if(collision != null) {
-			collision.onClickUp();
+		if(_currentlyClicked != null) {
+			_currentlyClicked.onClickUp(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+			_currentlyClicked = null;
 		}
 		return true;
 	}
 	public boolean mouseMoved(int screenX, int screenY) {
-		Button collision = CollisionManager.Instance.getCollision(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
-		if(collision != _hoveredButton && _hoveredButton != null) _hoveredButton.onHoverExit();
+		IHoverable collision = CollisionManager.Instance.getHovered(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+		if(collision != _currentlyHovered && _currentlyHovered != null) _currentlyHovered.onHoverExit();
 		if(collision != null) collision.onHovered();
-		_hoveredButton = collision;
+		_currentlyHovered = collision;
 		return true;
 	}
 	public boolean touchDragged(int screenX, int screenY, int pointer) {

@@ -3,9 +3,7 @@ package com.mygdx.imageeditor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
-public class Button extends Rec2D {
-	private static int _buttonCount;
-	private int _buttonNumber;
+public class Button extends Rec2D implements IHoverable, IClickable {
 	private ButtonState _state = ButtonState.None;
 	public enum ButtonState {Clicked, Hovered, None};
 	private Color _startColor;
@@ -17,12 +15,11 @@ public class Button extends Rec2D {
 		_startColor = recColor;
 		_clickColor = new Color(_startColor.r / 4f, _startColor.g / 4f, _startColor.b / 4f, 1);
 		_hoverColor = new Color(_startColor.r / 2f, _startColor.g / 2f, _startColor.b / 2f, 1);
-		InputManager.Instance.Buttons.add(this);
-		_buttonCount +=1;
-		_buttonNumber = _buttonCount;
+		InputManager.Instance.Clickables.add(this);
+		InputManager.Instance.Hoverables.add(this);
 	}
 		
-	public void onClickDown() {
+	public void onClickDown(Vector2 position) {
 		if(_state == ButtonState.Clicked) return;
 		_state = ButtonState.Clicked;
 		_recColor = _clickColor;
@@ -40,8 +37,9 @@ public class Button extends Rec2D {
 		_recColor = _startColor;
 		super.generateTexture();
 	}
-	public void onClickUp() {
-		_recColor = new Color(_startColor.r / 2f, _startColor.g / 2f, _startColor.b / 2f, 1);
+	public void onClickUp(Vector2 position) {
+		if(_state != ButtonState.Clicked) return;
+		_recColor = _hoverColor;
 		super.generateTexture();
 		_state = ButtonState.Hovered;
 	}
