@@ -29,10 +29,16 @@ public class InputManager implements InputProcessor {
 		return true;
 	}
 	public boolean mouseMoved(int screenX, int screenY) {
+		// Start and stop hovering on elements
 		IHoverable collision = CollisionManager.Instance.getHovered(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
 		if(collision != _currentlyHovered && _currentlyHovered != null) _currentlyHovered.onHoverExit();
 		if(collision != null) collision.onHovered();
 		_currentlyHovered = collision;
+		// Drag over currently clicked element
+		IClickable clickedCollision = CollisionManager.Instance.getClicked(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+		if(clickedCollision != null && clickedCollision == _currentlyClicked) {
+			clickedCollision.onClickDragged(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+		}
 		return true;
 	}
 	public boolean touchDragged(int screenX, int screenY, int pointer) {

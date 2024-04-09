@@ -43,4 +43,6 @@ public class Button extends Rec2D implements IHoverable, IClickable {
 		super.generateTexture();
 		_state = ButtonState.Hovered;
 	}
+	public void onClickDragged(Vector2 position) {
+	}
 }

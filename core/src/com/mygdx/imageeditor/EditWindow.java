@@ -16,10 +16,12 @@ public class EditWindow extends Rec2D implements IClickable {
 		_doodleMap.setColor(Color.ORANGE);
 		DoodleTexture = new Texture(_doodleMap);
 	}
-	public void onClickDown(Vector2 position) {
+	public void paintAtPosition(Vector2 position) {
 		_doodleMap.drawPixel((int) (position.x - Position.x), (int) (Scale.y - position.y + Position.y));
 		DoodleTexture = new Texture(_doodleMap);
 	}
+	public void onClickDown(Vector2 mousePosition) { paintAtPosition(mousePosition); }
 	public void onClickUp(Vector2 mousePosition) {
 	}
+	public void onClickDragged(Vector2 mousePosition) { paintAtPosition(mousePosition); }
 }
