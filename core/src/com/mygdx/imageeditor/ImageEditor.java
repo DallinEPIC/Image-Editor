@@ -23,6 +23,8 @@ public class ImageEditor extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Instance = this;
+		new ImageInputOutput();
+		Pixmap editMap = ImageInputOutput.Instance.loadImage("blackbuck.bmp");
 		batch = new SpriteBatch();
 		ScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		InputManager inputManager = new InputManager();
@@ -37,6 +39,7 @@ public class ImageEditor extends ApplicationAdapter {
 			new Vector2(0, 0),
 			Color.YELLOW
 		);
+		editWindow.DoodleTexture = new Texture(editMap);
 	}
 
 	@Override
