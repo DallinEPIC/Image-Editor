@@ -1,5 +1,6 @@
 package com.mygdx.imageeditor;
 
+import java.io.IOException;
 import java.util.Random;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -32,14 +33,13 @@ public class ImageEditor extends ApplicationAdapter {
 		CollisionManager collisionManager = new CollisionManager();
 		Vector2 editWindowSize = new Vector2(500, ScreenSize.y - 40);
 		editWindow = new EditWindow(
-			editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0), Color.GRAY
+			editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0), new Texture(editMap)
 		);
 		Button testButton = new Button(
 			new Vector2(50, 50),
 			new Vector2(0, 0),
 			Color.YELLOW
 		);
-		editWindow.DoodleTexture = new Texture(editMap);
 	}
 
 	@Override
