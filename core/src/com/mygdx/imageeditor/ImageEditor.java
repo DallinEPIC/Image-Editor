@@ -25,7 +25,6 @@ public class ImageEditor extends ApplicationAdapter {
 	public void create () {
 		Instance = this;
 		new ImageInputOutput();
-		Pixmap editMap = ImageInputOutput.Instance.loadImage("blackbuck.bmp");
 		batch = new SpriteBatch();
 		ScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		InputManager inputManager = new InputManager();
@@ -33,7 +32,7 @@ public class ImageEditor extends ApplicationAdapter {
 		CollisionManager collisionManager = new CollisionManager();
 		Vector2 editWindowSize = new Vector2(500, ScreenSize.y - 40);
 		editWindow = new EditWindow(
-			editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0), new Texture(editMap)
+			editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0)
 		);
 		Button testButton = new Button(
 			new Vector2(50, 50),
@@ -59,5 +58,11 @@ public class ImageEditor extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		//img.dispose();
+	}
+	
+	public void filesImported(String[] filePaths) {
+		Pixmap map = ImageInputOutput.Instance.loadImage(filePaths[0]);
+		if(map == null) return;
+		editWindow.RecTexture = new Texture(map);
 	}
 }
