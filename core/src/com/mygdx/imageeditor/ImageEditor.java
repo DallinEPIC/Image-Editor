@@ -24,21 +24,21 @@ public class ImageEditor extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Instance = this;
+		initializeUtilityClasses();
+		createGraphicalElements();
+	}
+	private void initializeUtilityClasses() {
+		new CollisionManager();
 		new ImageInputOutput();
-		batch = new SpriteBatch();
-		ScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		InputManager inputManager = new InputManager();
 		Gdx.input.setInputProcessor(inputManager);
-		CollisionManager collisionManager = new CollisionManager();
-		Vector2 editWindowSize = new Vector2(500, ScreenSize.y - 40);
-		editWindow = new EditWindow(
-			editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0)
-		);
-		Button testButton = new Button(
-			new Vector2(50, 50),
-			new Vector2(0, 0),
-			Color.YELLOW
-		);
+	}
+	private void createGraphicalElements() {
+		ScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		Vector2 editWindowSize = new Vector2(500, ScreenSize.y - 50);
+		Button button = new Button(new Vector2(50, 50), Vector2.Zero, Color.GOLD);
+		batch = new SpriteBatch();
+		editWindow = new EditWindow(editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0));
 	}
 
 	@Override

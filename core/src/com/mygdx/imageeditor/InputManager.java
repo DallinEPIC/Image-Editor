@@ -37,6 +37,7 @@ public class InputManager implements InputProcessor {
 		IHoverable collision = CollisionManager.Instance.getHovered(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
 		if(collision != _currentlyHovered && _currentlyHovered != null) _currentlyHovered.onHoverExit();
 		if(collision != null) collision.onHovered();
+		if(collision != _currentlyHovered) _currentlyClicked = null;
 		_currentlyHovered = collision;
 		// Drag over currently clicked element
 		IClickable clickedCollision = CollisionManager.Instance.getClicked(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
@@ -53,8 +54,11 @@ public class InputManager implements InputProcessor {
 	public boolean scrolled(float amountX, float amountY) {return false;}
 	
 	public boolean keyDown(int keycode) {
+		if(ImageInputOutput.Instance.ImageFolderLocation == null) {
+			return false;
+		}
 		if(_controlPressed && keycode == Keys.S)
-			try {ImageInputOutput.Instance.saveImage("C:\\Users\\Thund\\Desktop\\test.bmp");}
+			try {ImageInputOutput.Instance.saveImage(ImageInputOutput.Instance.ImageFolderLocation + "\\output.bmp");}
 			catch (IOException e) {e.printStackTrace();}
 		if(keycode == Keys.CONTROL_LEFT) _controlPressed = true;
 		return false;
