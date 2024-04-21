@@ -1,6 +1,10 @@
 package com.mygdx.imageeditor;
 
 import com.badlogic.gdx.math.Vector2;
+
+import Utility.IClickable;
+import Utility.InputManager;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -10,13 +14,15 @@ public class EditWindow extends Rec2D implements IClickable {
 	public static EditWindow Instance;
 	public Texture DoodleTexture;
 	public Pixmap _doodleMap;
+	public Color DrawColor;
 	private Vector2 _previousPaintPosition;
 	public EditWindow(Vector2 scale, Vector2 position) {
-		super(scale, position, Color.GRAY);
+		super(scale, position, Color.SLATE);
 		Instance = this;
 		InputManager.Instance.Clickables.add(this);
 		_doodleMap = new Pixmap((int) scale.x, (int) scale.y, Format.RGBA8888);
-		_doodleMap.setColor(Color.ORANGE);
+		DrawColor = Color.ORANGE;
+		_doodleMap.setColor(DrawColor);
 		DoodleTexture = new Texture(_doodleMap);
 	}
 	public void paintAtPosition(Vector2 position) {
@@ -41,4 +47,5 @@ public class EditWindow extends Rec2D implements IClickable {
 	}
 	public void onClickUp(Vector2 mousePosition) { _previousPaintPosition = null;}
 	public void onClickDragged(Vector2 mousePosition) { paintAtPosition(mousePosition); }
+
 }

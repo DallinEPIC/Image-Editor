@@ -1,4 +1,4 @@
-package com.mygdx.imageeditor;
+package Utility;
 
 import java.io.IOException;
 
@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.imageeditor.ImageEditor;
 
 public class InputManager implements InputProcessor {
 	public Array<IClickable> Clickables = new Array<IClickable>();
